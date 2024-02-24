@@ -8,6 +8,10 @@ public class CameraController : MonoBehaviour
     Transform player;
     //Wysokoœæ kamery
     public float cameraHeight = 10.0f;
+    //Prêdkoœæ kamery - do u¿ytku dla smootdamp
+    Vector3 cameraSpeed;
+    //Szybkoœæ wyg³adzania ruchu kamery - dla smoothdamp
+    public float dampSpeed = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,9 @@ public class CameraController : MonoBehaviour
         //P³ynnie przesuñ kamerê w kierunku gracza
         //Funkcja Vector3.Lerp
         //P³ynnie przechodzi z pozycji pierwszego argumentu do pozycji drugiego w czasie trzeciego
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
+
+        //Smoothdamp dzia³a jak sprê¿yna staraj¹ca sie doci¹gn¹æ kamerê do was
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref cameraSpeed, dampSpeed);
     }
 }
