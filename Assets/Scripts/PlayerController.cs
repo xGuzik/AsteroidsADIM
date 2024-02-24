@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,36 +16,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Dodaj do wspó³rzêdnych wartoœæ x=1, y=0, z=0 pomno¿one przez czas 
+        //Dodaj do wspÃ³Å‚rzÄ™dnych wartoÅ›Ä‡ x=1, y=0, z=0 pomnoÅ¼one przez czas 
         //Mierzony w sekundach od ostatniej klatki
         //transform.position += new Vector3(1, 0, 0) * Time.deltaTime;
 
-        //Prezentacja dzia³ania wyg³adzonego sterowania (emulcja joystika)
+        //Prezentacja dziaÅ‚ania wygÅ‚adzonego sterowania (emulcja joystika)
         //Debug.Log(Input.GetAxis("Vertical"));
 
-        //Sterowanie prêdkoœci¹
-        //Stwórz nowy wektor przesuniêcia o wartoœci 1 do przodu
+        //Sterowanie prÄ™dkoÅ›ciÄ…
+        //StwÃ³rz nowy wektor przesuniÄ™cia o wartoÅ›ci 1 do przodu
         Vector3 movement = transform.forward;
-        //PomnóŸ go przez czas od ostatniej klatki
+        //PomnÃ³Åº go przez czas od ostatniej klatki
         movement *= Time.deltaTime;
-        //Pomnó¿ go przez wychylenie joystika
+        //PomnÃ³Å¼ go przez wychylenie joystika
         movement *= Input.GetAxis("Vertical");
-        //pomnó¿ przez prêdkoœæ lotu
+        //pomnÃ³Å¼ przez prÄ™dkoÅ›Ä‡ lotu
         movement *= flySpeed;
         //Dodaj ruch do obiektu
         transform.position += movement;
 
-        //Obrót
-        //Modyfikuj oœ "Y" obiektu player
+        //ObrÃ³t
+        //Modyfikuj oÅ› "Y" obiektu player
         Vector3 rotation = Vector3.up;
-        //Przemnó¿ przez czas
+        //PrzemnÃ³Å¼ przez czas
         rotation *= Time.deltaTime;
-        //Przemnó¿ przez klawiaturê
+        //PrzemnÃ³Å¼ przez klawiaturÄ™
         rotation *= Input.GetAxis("Horizontal");
-        //Pomnó¿ przez prêdkoœæ obrotu
+        //PomnÃ³Å¼ przez prÄ™dkoÅ›Ä‡ obrotu
         rotation *= rotationSpeed;
-        //Dodaj obrót do obiektu
-        //Nie mo¿emy u¿yæ += poniewa¿ unity u¿ywa Quaternionów do zapisu rotacji
+        //Dodaj obrÃ³t do obiektu
+        //Nie moÅ¼emy uÅ¼yÄ‡ += poniewaÅ¼ unity uÅ¼ywa QuaternionÃ³w do zapisu rotacji
         transform.Rotate(rotation);
 
     }
