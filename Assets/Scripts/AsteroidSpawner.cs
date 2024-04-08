@@ -14,6 +14,12 @@ public class AsteroidSpawner : MonoBehaviour
     //Czas od ostatnio wygenerowanej asteroidy
     float timeSinceSpawn;
 
+    //Odleg³oœæ w jakiej spawnuj¹ siê asteroidy
+    public float spawnDistance = 10;
+
+    //Odleg³oœæ pomiêdzy asteroidami
+    public float safeDistance = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,14 +33,7 @@ public class AsteroidSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Dolicz czas od ostatniej klatki
-        timeSinceSpawn += Time.deltaTime;
-        //Je¿eli czas przekroczy³ sekundê do spawnuj i zresetuj
-        if(timeSinceSpawn > 0.1 )
-        {
-            GameObject asteroid = SpawnAsteroid(staticAsteroid);
-            timeSinceSpawn = 0;
-        }
+        SpawnAsteroid(staticAsteroid);
 
         AsteroidCountControll();
     }
@@ -48,14 +47,14 @@ public class AsteroidSpawner : MonoBehaviour
 
         //Losowa pozycja w odleg³oœci 10 jednostek od œrodka œwiata
         //Mapujemy x -> x, y -> z, a y ustawiamy 0
-        Vector3 randomPosition = new Vector3(randomCirclePosition.x, 0, randomCirclePosition.y) * 10;
+        Vector3 randomPosition = new Vector3(randomCirclePosition.x, 0, randomCirclePosition.y) * spawnDistance;
 
         //Na³ó¿ pozycjê gracza - teraz mamy pozycje 10 jednostek od gracza
         randomPosition += player.position;
 
         //SprawdŸ czy miejsce jest wolne
         //! oznacza "nie" czyli nie ma nic w promieniu 5 jednostek od miejsca randomPosition
-        if(!Physics.CheckSphere(randomPosition, 5))
+        if(!Physics.CheckSphere(randomPosition, safeDistance))
         {
             //Stwórz zmienna asteroid, zespawnuj nowy asteroid korzystaj¹c z prefaba w losowym miejscu, z rotacj¹ domyœln¹ (Quaternion.identity)
             GameObject asteroid = Instantiate(staticAsteroid, randomPosition, Quaternion.identity);

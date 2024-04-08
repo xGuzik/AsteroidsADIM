@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
     public GameObject exitPrefab;
     //Zmienna - flaga - oznaczaj¹ca ukoñczenie poziomu
     public bool levelComplete = false;
+    //Taka sama zmienna tylko jeœli przegramy
+    public bool LevelFailed = false;
     // Start is called before the first frame update
     void Start()
     {
