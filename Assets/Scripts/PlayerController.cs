@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     public float rotationSpeed = 100f;
     public float flySpeed = 5f;
+    //Odniesienie do menadżera poziomu
+    GameObject levelManagerObject;
     // Start is called before the first frame update
     void Start()
     {
-        
+        levelManagerObject = GameObject.Find("LevelManager");
     }
 
     // Update is called once per frame
@@ -53,7 +55,17 @@ public class PlayerController : MonoBehaviour
         //Dodaj obrót do obiektu
         //Nie możemy użyć += ponieważ unity używa Quaternionów do zapisu rotacji
         transform.Rotate(rotation);
+        UpdateUI();
+    }
 
+    private void UpdateUI()
+    {
+        //Metoda wykonuje wszystko związane z aktualizacją interfejsu użytkownika 
+
+        //Wyciągnij z menadżera poziomu pozycję wyjścia
+        Vector3 target = levelManagerObject.GetComponent<LevelManager>().exitPosition;
+        //Obróć znacznik w stronę wyjścia
+        transform.Find("NavUI").Find("TargetMarker").LookAt(target);
     }
 
     private void OnCollisionEnter(Collision collision)
