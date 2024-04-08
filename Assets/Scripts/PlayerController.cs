@@ -33,7 +33,13 @@ public class PlayerController : MonoBehaviour
         //pomnóż przez prędkość lotu
         movement *= flySpeed;
         //Dodaj ruch do obiektu
-        transform.position += movement;
+        //Zmiana na fizyke
+        // --- transform.position += movement;
+
+        //Komponent fizyki wewnątrz gracza
+        Rigidbody rb = GetComponent<Rigidbody>();
+        //Dodaj siłe - do przodu statku w trybie zmiany prędkości
+        rb.AddForce(movement, ForceMode.VelocityChange);
 
         //Obrót
         //Modyfikuj oś "Y" obiektu player
@@ -48,5 +54,18 @@ public class PlayerController : MonoBehaviour
         //Nie możemy użyć += ponieważ unity używa Quaternionów do zapisu rotacji
         transform.Rotate(rotation);
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Uruchamia się automatycznie jeśli zetkniemy się z innym coliderem
+
+        //Sprawdzamy czy dotkneliśmy asteroidy
+        if (collision.collider.transform.CompareTag("Asteroid"))
+        {
+            Debug.Log("Boom!");
+            //Pauza
+            Time.timeScale = 0;
+        }
     }
 }
