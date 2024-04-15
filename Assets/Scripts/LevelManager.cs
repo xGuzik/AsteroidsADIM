@@ -28,6 +28,9 @@ public class LevelManager : MonoBehaviour
         //Podstawiamy x=x, y=0, z=y
         exitPosition = new Vector3(spawnCircle.x, 0, spawnCircle.y);
         Instantiate(exitPrefab, exitPosition, Quaternion.identity);
+
+        //Wystartuj czas
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
@@ -44,5 +47,14 @@ public class LevelManager : MonoBehaviour
         levelComplete = true;
         //Odegraj dŸwiêk koñca poziomu
         Camera.main.transform.Find("LevelCompleteSound").GetComponent<AudioSource>().Play();
+    }
+    public void OnFailure()
+    {
+        //Zatrzymaj fizykê gry
+        Time.timeScale = 0f;
+        //Ustaw flagê, ¿e nie uda³o siê zakoñczyæ poziomu
+        LevelFailed = true;
+        //Odegraj dŸwiêk przegranej
+        Camera.main.transform.Find("GameOverSound").GetComponent<AudioSource>().Play();
     }
 }
